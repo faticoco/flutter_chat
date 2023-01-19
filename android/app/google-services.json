@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "58231164875",
+    "project_id": "faticoco-chat-proj",
+    "storage_bucket": "faticoco-chat-proj.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:58231164875:android:cb4a7079c6c4c26649704e",
+        "android_client_info": {
+          "package_name": "com.example.flutter_chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "58231164875-tuhhse70ll20u68ts5j5sed03d418ffj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8CkW326o9TiVwCJRD1Rd2A43DBInv9nA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "58231164875-tuhhse70ll20u68ts5j5sed03d418ffj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "58231164875-fbto6ilos2jjrf4gkks65o4hshjprq54.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flutterChat"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
