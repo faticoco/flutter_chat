@@ -67,7 +67,7 @@ class _RegisterViewState extends State<RegisterView> {
               } else if (e.code == 'email-already-in-use') {
                 print('Email is already in use');
               } else if (e.code == 'invalid-email') {
-                print('Email is invalid');
+                print('Email is invalid!');
               } else {
                 print(e);
               }
