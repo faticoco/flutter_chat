@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat/register_view.dart';
+import 'dart:developer' as devtools show log;
 
 class Loginview extends StatefulWidget {
   const Loginview({super.key});
@@ -58,14 +59,19 @@ class _LoginviewState extends State<Loginview> {
                 final password = _password.text;
                 bool login = true;
                 try {
-                  await FirebaseAuth.instance.signInWithEmailAndPassword(
-                      email: email, password: password);
+                  final UserCredential = await FirebaseAuth.instance
+                      .signInWithEmailAndPassword(
+                          email: email, password: password);
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    '/notes/',
+                    (route) => false,
+                  );
                 } catch (e) {
                   print(e);
                   login = false;
                 }
                 if (login) {
-                  print("LOGGED IN ");
+                  devtools.log("LOGGED IN ");
                 }
               },
               child: const Text('Login'),

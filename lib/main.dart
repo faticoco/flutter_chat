@@ -22,6 +22,7 @@ void main() async {
       routes: {
         '/login/': (context) => const Loginview(),
         '/register/': (context) => const RegisterView(),
+        '/notes/': ((context) => const view()),
       },
     ),
   );
@@ -43,7 +44,7 @@ class Homepage extends StatelessWidget {
 
             if (user != null) {
               if (user.emailVerified) {
-                print('email verified');
+                devtools.log('email verified');
                 return const view();
               } else {
                 return const Verifyemailview();
