@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat/loginview.dart';
 import 'package:flutter_chat/register_view.dart';
+import 'package:flutter_chat/verifyemailview.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -37,16 +38,18 @@ class Homepage extends StatelessWidget {
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.done:
-            //final user = FirebaseAuth.instance.currentUser;
-            //if (user?.emailVerified ?? false) {
-            //} else {
-            //Navigator.of(context).push(
-            // MaterialPageRoute(
-            // builder: (context) => const Verifyemailview(),
-            //),
-            //);
-            //}
-            return const Loginview();
+            final user = FirebaseAuth.instance.currentUser;
+
+            if (user != null) {
+              if (user.emailVerified) {
+                print('email verified');
+              } else {
+                return const Verifyemailview();
+              }
+            } else {
+              return const Loginview();
+            }
+            return const Text('done');
           default:
             return const CircularProgressIndicator();
         }
