@@ -1,8 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_chat/constants/rotes.dart';
+import 'package:flutter_chat/constants/routes.dart';
 import 'package:flutter_chat/register_view.dart';
+import 'package:flutter_chat/utilities/showerrordialogs.dart';
 import 'dart:developer' as devtools show log;
+
+import 'main.dart';
 
 class Loginview extends StatefulWidget {
   const Loginview({super.key});
@@ -69,6 +72,10 @@ class _LoginviewState extends State<Loginview> {
                   );
                 } catch (e) {
                   print(e);
+                  await showErrorDialog(
+                    context,
+                    'Error: ${e.toString()}',
+                  );
                   login = false;
                 }
                 if (login) {

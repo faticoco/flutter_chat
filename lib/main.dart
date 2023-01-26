@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_chat/constants/rotes.dart';
+import 'package:flutter_chat/constants/routes.dart';
 import 'package:flutter_chat/loginview.dart';
 import 'package:flutter_chat/register_view.dart';
 import 'package:flutter_chat/verifyemailview.dart';
