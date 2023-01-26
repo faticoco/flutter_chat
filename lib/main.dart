@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chat/constants/rotes.dart';
 import 'package:flutter_chat/loginview.dart';
 import 'package:flutter_chat/register_view.dart';
 import 'package:flutter_chat/verifyemailview.dart';
@@ -20,9 +21,9 @@ void main() async {
       ),
       home: const Homepage(),
       routes: {
-        '/login/': (context) => const Loginview(),
-        '/register/': (context) => const RegisterView(),
-        '/notes/': ((context) => const view()),
+        loginRoute: (context) => const Loginview(),
+        registerroute: (context) => const RegisterView(),
+        notesRoute: ((context) => const view()),
       },
     ),
   );

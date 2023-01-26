@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chat/constants/rotes.dart';
 import 'package:flutter_chat/register_view.dart';
 import 'dart:developer' as devtools show log;
 
@@ -63,7 +64,7 @@ class _LoginviewState extends State<Loginview> {
                       .signInWithEmailAndPassword(
                           email: email, password: password);
                   Navigator.of(context).pushNamedAndRemoveUntil(
-                    '/notes/',
+                    notesRoute,
                     (route) => false,
                   );
                 } catch (e) {
@@ -79,7 +80,7 @@ class _LoginviewState extends State<Loginview> {
             TextButton(
               onPressed: () {
                 Navigator.of(context).pushNamedAndRemoveUntil(
-                  '/register/',
+                  registerroute,
                   (route) => false,
                 );
               },
