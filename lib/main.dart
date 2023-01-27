@@ -24,6 +24,7 @@ void main() async {
         loginRoute: (context) => const Loginview(),
         registerroute: (context) => const RegisterView(),
         notesRoute: ((context) => const view()),
+        verifyemail: (context) => const Verifyemailview(),
       },
     ),
   );

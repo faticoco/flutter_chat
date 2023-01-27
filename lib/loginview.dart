@@ -28,7 +28,7 @@ class _LoginviewState extends State<Loginview> {
 
   @override
   void dispose() {
-    _email.dispose();         
+    _email.dispose();
     _password.dispose();
     super.dispose();
   }
@@ -63,13 +63,20 @@ class _LoginviewState extends State<Loginview> {
                 final password = _password.text;
                 bool login = true;
                 try {
-                  final UserCredential = await FirebaseAuth.instance
-                      .signInWithEmailAndPassword(
-                          email: email, password: password);
-                  Navigator.of(context).pushNamedAndRemoveUntil(
-                    notesRoute,
-                    (route) => false,
-                  );
+                  await FirebaseAuth.instance.signInWithEmailAndPassword(
+                      email: email, password: password);
+                  final user = FirebaseAuth.instance.currentUser;
+                  if (user?.emailVerified ?? false) {
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                      notesRoute,
+                      (route) => false,
+                    );
+                  } else {
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                      verifyemail,
+                      (route) => false,
+                    );
+                  }
                 } catch (e) {
                   print(e);
                   await showErrorDialog(
