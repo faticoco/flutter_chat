@@ -1,11 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat/constants/routes.dart';
-import 'package:flutter_chat/register_view.dart';
+import 'package:flutter_chat/services/auth/auth_exceptions.dart';
+import 'package:flutter_chat/services/auth/auth_service.dart';
 import 'package:flutter_chat/utilities/showerrordialogs.dart';
 import 'dart:developer' as devtools show log;
-
-import 'main.dart';
 
 class Loginview extends StatefulWidget {
   const Loginview({super.key});
@@ -63,30 +61,46 @@ class _LoginviewState extends State<Loginview> {
                 final password = _password.text;
                 bool login = true;
                 try {
-                  await FirebaseAuth.instance.signInWithEmailAndPassword(
-                      email: email, password: password);
-                  final user = FirebaseAuth.instance.currentUser;
-                  if (user?.emailVerified ?? false) {
+                  await authservice.firebase().logIn(
+                        email: email,
+                        password: password,
+                      );
+                  final user = authservice.firebase().currentuser;
+                  if (user?.isEmailVerified ?? false) {
                     Navigator.of(context).pushNamedAndRemoveUntil(
                       notesRoute,
                       (route) => false,
                     );
                   } else {
                     Navigator.of(context).pushNamedAndRemoveUntil(
-                      verifyemail,
+                      verifyemailroute,
                       (route) => false,
                     );
                   }
-                } catch (e) {
-                  print(e);
+                } on userNotFoundAuthException catch (e) {
+                  login = false;
                   await showErrorDialog(
                     context,
-                    'Error: ${e.toString()}',
+                    'user not found',
                   );
+                } on WrongPasswordAuthException catch (e) {
                   login = false;
+                  await showErrorDialog(
+                    context,
+                    'wrong password',
+                  );
+                } on GenericAuthException catch (e) {
+                  await showErrorDialog(
+                    context,
+                    'authentication error',
+                  );
                 }
                 if (login) {
                   devtools.log("LOGGED IN ");
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    notesRoute,
+                    (route) => false,
+                  );
                 }
               },
               child: const Text('Login'),

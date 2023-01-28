@@ -1,10 +1,14 @@
 import 'package:flutter_chat/services/auth/auth_provider.dart';
 import 'package:flutter_chat/services/auth/auth_user.dart';
+import 'package:flutter_chat/services/auth/firebase_auth_provider.dart';
 
 class authservice implements Authprovider {
   final Authprovider provider;
   const authservice(this.provider);
 
+  factory authservice.firebase() => authservice(
+        FirebaseAuthProvider(),
+      );
   @override
   Future<void> Logout() => provider.Logout();
 
@@ -33,4 +37,7 @@ class authservice implements Authprovider {
 
   @override
   Future<void> sendEmailVerification() => provider.sendEmailVerification();
+
+  @override
+  Future<void> initialize() => provider.initialize(); 
 }

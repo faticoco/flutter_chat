@@ -1,18 +1,16 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat/constants/routes.dart';
-import 'package:flutter_chat/loginview.dart';
-import 'package:flutter_chat/register_view.dart';
-import 'package:flutter_chat/verifyemailview.dart';
+import 'package:flutter_chat/utilities/loginview.dart';
+import 'package:flutter_chat/utilities/register_view.dart';
+import 'package:flutter_chat/services/auth/auth_service.dart';
+import 'package:flutter_chat/utilities/views/notesview.dart';
+import 'package:flutter_chat/utilities/views/verifyemailview.dart';
 import 'firebase_options.dart';
 import 'dart:developer' as devtools show log;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+
   runApp(
     MaterialApp(
       title: 'Flutter Demo',
@@ -24,7 +22,7 @@ void main() async {
         loginRoute: (context) => const Loginview(),
         registerroute: (context) => const RegisterView(),
         notesRoute: ((context) => const view()),
-        verifyemail: (context) => const Verifyemailview(),
+        verifyemailroute: (context) => const Verifyemailview(),
       },
     ),
   );
@@ -36,16 +34,14 @@ class Homepage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform,
-      ),
+      future: authservice.firebase().initialize(),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.done:
-            final user = FirebaseAuth.instance.currentUser;
+            final user = authservice.firebase().currentuser;
 
             if (user != null) {
-              if (user.emailVerified) {
+              if (user.isEmailVerified) {
                 devtools.log('email verified');
                 return const view();
               } else {
@@ -61,75 +57,4 @@ class Homepage extends StatelessWidget {
       },
     );
   }
-}
-
-enum menuaction { logout }
-
-class view extends StatefulWidget {
-  const view({super.key});
-
-  @override
-  State<view> createState() => _viewState();
-}
-
-class _viewState extends State<view> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Main UI'),
-        actions: [
-          PopupMenuButton<menuaction>(
-            onSelected: (value) async {
-              switch (value) {
-                case menuaction.logout:
-                  final logout_ = await showLogoutDialogbox(context);
-                  if (logout_) {
-                    await FirebaseAuth.instance.signOut();
-                    Navigator.of(context)
-                        .pushNamedAndRemoveUntil('/login/', (_) => false);
-                  }
-                  break;
-              }
-            },
-            itemBuilder: (context) {
-              return const [
-                PopupMenuItem(
-                  value: menuaction.logout,
-                  child: Text('logout'),
-                ),
-              ];
-            },
-          )
-        ],
-      ),
-      body: const Text('hello world'),
-    );
-  }
-}
-
-//building dialog box
-
-Future<bool> showLogoutDialogbox(BuildContext context) {
-  return showDialog<bool>(
-    context: context,
-    builder: (context) {
-      return AlertDialog(
-        title: const Text('Sign out'),
-        content: const Text('Are you sure you want to log out'),
-        actions: [
-          TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(false);
-              },
-              child: const Text('Cancel')),
-          TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(true);
-              },
-              child: const Text('Log out')),
-        ],
-      );
-    },
-  ).then((value) => value ?? false);
 }

@@ -1,6 +1,7 @@
 import 'package:flutter_chat/services/auth/auth_user.dart';
 
 abstract class Authprovider {
+  Future<void> initialize();
   Authuser? get currentuser;
   Future<Authuser> logIn({
     required String email,
