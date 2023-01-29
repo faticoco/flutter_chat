@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_chat/constants/routes.dart';
-import 'package:flutter_chat/utilities/loginview.dart';
-import 'package:flutter_chat/utilities/register_view.dart';
-import 'package:flutter_chat/services/auth/auth_service.dart';
-import 'package:flutter_chat/utilities/views/notesview.dart';
-import 'package:flutter_chat/utilities/views/verifyemailview.dart';
+import '/constants/routes.dart';
+import '/utilities/loginview.dart';
+import '/utilities/register_view.dart';
+import '/services/auth/auth_service.dart';
+import '/utilities/views/notesview.dart';
+import '/utilities/views/verifyemailview.dart';
 import 'firebase_options.dart';
 import 'dart:developer' as devtools show log;
 
