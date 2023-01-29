@@ -3,7 +3,6 @@ import 'package:flutter_chat/constants/routes.dart';
 import 'package:flutter_chat/services/auth/auth_exceptions.dart';
 import 'package:flutter_chat/services/auth/auth_service.dart';
 import 'package:flutter_chat/utilities/showerrordialogs.dart';
-import 'dart:developer' as devtools show log;
 
 class Loginview extends StatefulWidget {
   const Loginview({super.key});
@@ -59,7 +58,6 @@ class _LoginviewState extends State<Loginview> {
               onPressed: () async {
                 final email = _email.text;
                 final password = _password.text;
-                bool login = true;
                 try {
                   await authservice.firebase().logIn(
                         email: email,
@@ -78,13 +76,11 @@ class _LoginviewState extends State<Loginview> {
                     );
                   }
                 } on userNotFoundAuthException {
-                  login = false;
                   await showErrorDialog(
                     context,
                     'user not found',
                   );
                 } on WrongPasswordAuthException {
-                  login = false;
                   await showErrorDialog(
                     context,
                     'wrong password',
@@ -93,13 +89,6 @@ class _LoginviewState extends State<Loginview> {
                   await showErrorDialog(
                     context,
                     'authentication error',
-                  );
-                }
-                if (login) {
-                  devtools.log("LOGGED IN ");
-                  Navigator.of(context).pushNamedAndRemoveUntil(
-                    notesRoute,
-                    (route) => false,
                   );
                 }
               },

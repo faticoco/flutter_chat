@@ -3,7 +3,6 @@ import 'package:flutter_chat/constants/routes.dart';
 import 'package:flutter_chat/services/auth/auth_service.dart';
 
 import '../../enums/menu_actions.dart';
-import '../../main.dart';
 
 class view extends StatefulWidget {
   const view({super.key});
