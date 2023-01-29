@@ -65,22 +65,22 @@ class _RegisterViewState extends State<RegisterView> {
 
                 authservice.firebase().sendEmailVerification();
                 Navigator.of(context).pushNamed(verifyemailroute);
-              } on WeakPasswordAuthException catch (e) {
+              } on WeakPasswordAuthException {
                 await showErrorDialog(
                   context,
                   'this is a weak password',
                 );
-              } on EmailAlreadyInUseAuthException catch (e) {
+              } on EmailAlreadyInUseAuthException {
                 await showErrorDialog(
                   context,
                   'this is an email address already in use',
                 );
-              } on InvalidEmailAuthException catch (e) {
+              } on InvalidEmailAuthException {
                 await showErrorDialog(
                   context,
                   'this is an invalid email address',
                 );
-              } on GenericAuthException catch (e) {
+              } on GenericAuthException {
                 await showErrorDialog(
                   context,
                   'failed to register',

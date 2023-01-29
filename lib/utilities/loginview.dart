@@ -77,19 +77,19 @@ class _LoginviewState extends State<Loginview> {
                       (route) => false,
                     );
                   }
-                } on userNotFoundAuthException catch (e) {
+                } on userNotFoundAuthException {
                   login = false;
                   await showErrorDialog(
                     context,
                     'user not found',
                   );
-                } on WrongPasswordAuthException catch (e) {
+                } on WrongPasswordAuthException {
                   login = false;
                   await showErrorDialog(
                     context,
                     'wrong password',
                   );
-                } on GenericAuthException catch (e) {
+                } on GenericAuthException {
                   await showErrorDialog(
                     context,
                     'authentication error',

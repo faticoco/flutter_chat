@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_chat/constants/routes.dart';
 import 'package:flutter_chat/services/auth/auth_service.dart';
 
 import '../../enums/menu_actions.dart';
@@ -26,7 +27,7 @@ class _viewState extends State<view> {
                   if (logout_) {
                     await authservice.firebase().Logout();
                     Navigator.of(context)
-                        .pushNamedAndRemoveUntil('/login/', (_) => false);
+                        .pushNamedAndRemoveUntil(loginRoute, (_) => false);
                   }
                   break;
               }
