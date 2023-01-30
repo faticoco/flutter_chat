@@ -68,13 +68,13 @@ void main() {
     });
 
     test('logged in and log out again', () async {
-      await provider.Logout();
       await provider.logIn(
         email: 'email',
         password: 'password',
       );
       final user = provider.currentuser;
       expect(user, isNotNull);
+      await provider.Logout();
     });
   });
 }
@@ -124,7 +124,10 @@ class MockAuthProvider implements Authprovider {
     if (!isinitialized) throw NotinitializedException();
     if (email == 'foobae@.com') throw userNotFoundAuthException();
     if (password == 'foobar') throw WrongPasswordAuthException();
-    const user = Authuser(isEmailVerified: false);
+    const user = Authuser(
+      isEmailVerified: false,
+      email: 'fatima@.com',
+    );
     _user = user;
     return Future.value(user);
   }
@@ -136,7 +139,10 @@ class MockAuthProvider implements Authprovider {
     if (user == null) {
       throw userNotFoundAuthException();
     }
-    const newUser = Authuser(isEmailVerified: true);
+    const newUser = Authuser(
+      isEmailVerified: true,
+      email: 'fatima@.com',
+    );
     _user = newUser;
   }
 }

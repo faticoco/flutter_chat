@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_chat/utilities/views/notes/new_notes_view.dart';
 import '/constants/routes.dart';
 import '/utilities/loginview.dart';
 import '/utilities/register_view.dart';
@@ -21,8 +22,9 @@ void main() async {
       routes: {
         loginRoute: (context) => const Loginview(),
         registerroute: (context) => const RegisterView(),
-        notesRoute: ((context) => const view()),
+        notesRoute: (context) => const view(),
         verifyemailroute: (context) => const Verifyemailview(),
+        newnoteroute: (context) => const newNoteView(),
       },
     ),
   );
