@@ -85,11 +85,6 @@ class _LoginviewState extends State<Loginview> {
                     context,
                     'wrong password',
                   );
-                } on GenericAuthException {
-                  await showErrorDialog(
-                    context,
-                    'authentication error',
-                  );
                 }
               },
               child: const Text('Login'),
