@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_chat/services/auth/auth_service.dart';
 import 'package:flutter_chat/services/crud/notes_serive.dart';
@@ -14,13 +16,6 @@ class _newNotesViewState extends State<newNoteView> {
   late final notesService _noteservice;
   late final TextEditingController _textcontroller;
 
-  @override
-  void initState() {
-    _noteservice = notesService();
-    _textcontroller = TextEditingController();
-    super.initState(); //super calls the init of the parent class
-  }
-
   void _textcontrollerlistener() async {
     final note = _note;
     if (note == null) {
@@ -33,6 +28,13 @@ class _newNotesViewState extends State<newNoteView> {
   void setuptextcontrollerlistener() {
     _textcontroller.removeListener(_textcontrollerlistener);
     _textcontroller.addListener(_textcontrollerlistener);
+  }
+
+  @override
+  void initState() {
+    _noteservice = notesService();
+    _textcontroller = TextEditingController();
+    super.initState(); //super calls the init of the parent class
   }
 
   Future<databasenote> createnewnote() async {
@@ -79,11 +81,14 @@ class _newNotesViewState extends State<newNoteView> {
         title: const Text('New Note'),
       ),
       body: FutureBuilder(
-        future: createnewnote(),
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.done:
-              _note = snapshot.data as databasenote;
+          future: createnewnote(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.data == null) {
+                print("hahahah");
+              }
+              _note = snapshot.data; ////////////////////////////
+
               setuptextcontrollerlistener();
               return TextField(
                 controller: _textcontroller,
@@ -93,11 +98,10 @@ class _newNotesViewState extends State<newNoteView> {
                   hintText: 'Start typing your note',
                 ),
               );
-            default:
-              return const CircularProgressIndicator();
-          }
-        },
-      ),
+            } else {
+              return const CircularProgressIndicator(); // loading
+            }
+          }),
     );
   }
 }
